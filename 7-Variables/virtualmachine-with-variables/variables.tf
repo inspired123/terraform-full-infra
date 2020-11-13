@@ -59,10 +59,10 @@ variable "os" {
 
 # Locate the existing custom/golden image
 data "azurerm_image" "search" {
-  name                = ""
-  resource_group_name = ""
+  name                = "vmterraform-image-20201113120041"
+  resource_group_name = "rg-terraexample"
 }
 
 output "image_id" {
-  value = ""
+  value = "/subscriptions/cf0bcec9-631e-4dc9-8d08-807fa41bbe6e/resourceGroups/rg-terraexample/providers/Microsoft.Compute/images/vmterraform-image-20201113120041"
 }
