@@ -55,4 +55,14 @@ variable "os" {
         sku = string
         version = string
   })
-}      
+} 
+
+# Locate the existing custom/golden image
+data "azurerm_image" "search" {
+  name                = ""
+  resource_group_name = ""
+}
+
+output "image_id" {
+  value = ""
+}
