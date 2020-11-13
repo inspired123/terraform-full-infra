@@ -86,10 +86,7 @@ resource "azurerm_virtual_machine" "vm" {
   }
 
   storage_image_reference {
-    publisher = var.os.publisher
-    offer     = var.os.offer
-    sku       = var.os.sku
-    version   = var.os.version
+    id = "${data.azurerm_image.search.id}"
   }
 
   os_profile {
