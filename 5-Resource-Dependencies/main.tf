@@ -9,23 +9,12 @@ provider "azurerm" {
 
 #create resource group
 resource "azurerm_resource_group" "rg" {
-    name     = "image"
+    name     = "rg-${local.system}"
     location = "South Central US"
     tags      = {
       Environment = local.system
     }
 }
-
-# Locate the existing custom/golden image
-data "azurerm_image" "search" {
-  name                = "image"
-  resource_group_name = "image"
-}
-
-output "image_id" {
-  value = "/subscriptions/cf0bcec9-631e-4dc9-8d08-807fa41bbe6e/resourceGroups/image/providers/Microsoft.Compute/images/image"
-}
-
 
 #Create virtual network
 resource "azurerm_virtual_network" "vnet" {
@@ -88,7 +77,7 @@ resource "azurerm_network_interface" "nic" {
 
 # Create virtual machine
 resource "azurerm_virtual_machine" "vm" {
-  name                  = "image"
+  name                  = "vmterraform"
   location              = "South Central US"
   resource_group_name   = azurerm_resource_group.rg.name
   network_interface_ids = [azurerm_network_interface.nic.id]
@@ -102,11 +91,14 @@ resource "azurerm_virtual_machine" "vm" {
   }
 
   storage_image_reference {
-    id = "${data.azurerm_image.search.id}"
+    publisher = "MicrosoftWindowsServer"
+    offer     = "WindowsServer"
+    sku       = "2016-Datacenter-with-Containers"
+    version   = "latest"
   }
 
   os_profile {
-    computer_name  = "image"
+    computer_name  = "vmterraform"
     admin_username = "terrauser"
     admin_password = "Password1234!"
   }
