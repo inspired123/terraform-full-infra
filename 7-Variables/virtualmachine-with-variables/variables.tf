@@ -17,11 +17,13 @@ variable "location" {
 
 variable "admin_username" {
     type = string
+    default= "admin"
     description = "Administrator username for server"
 }
 
 variable "admin_password" {
     type = string
+    default= "admin1234!!"
     description = "Administrator password for server"
 }
 
